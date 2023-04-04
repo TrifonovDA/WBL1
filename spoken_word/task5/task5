@@ -1,0 +1,26 @@
+https://qna.habr.com/q/1039886
+https://medium.easyread.co/golang-series-empty-struct-ed317e6d8600
+
+0 байт
+
+//Пример кода, который это покажет
+//конечно же есть накладные расходы на ее объявление, хранение указателя, ссылки и т.п.
+Так что это совсем не 'ничего', но использование struct{} имеет наименьшее потребление памяти
+package main
+
+import (
+    "fmt"
+    "unsafe"
+)
+
+type S1 struct {
+    f1 int
+}
+
+func main() {
+    s1 := S1{}
+    s2 := struct{}{}
+
+    fmt.Printf("s1 size: %v\n", unsafe.Sizeof(s1))
+    fmt.Printf("s2 size: %v\n", unsafe.Sizeof(s2))
+}
