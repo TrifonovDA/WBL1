@@ -1,15 +1,15 @@
 package main
 
 import (
+	"bytes"
 	"fmt"
-	"io"
 	"os"
 )
 
 //К каким негативным последствиям может привести данный фрагмент кода, и как это исправить?
 //Приведите корректный пример реализации.
 
-// var justString string --
+// var justString string
 // К глобальным переменным можно обращаться из любой функции, поэтому их изменение может быть неожиданным.
 // Такое поведение может привести к ошибкам, которые очень сложно отлаживать.
 // На самом деле, глобальные переменные допустимы, но их использование должно быть оправдано.
@@ -26,16 +26,17 @@ import (
 //	func main() {
 //		someFunc()
 //	}
-func createHugeString(uint uint64, writer io.Writer) (string, error) {
-	var str []byte
+func createHugeString(uint uint64, f *os.File) (string, error) {
+	buffer := bytes.Buffer{}
+
 	for i := uint64(0); i < uint; i++ {
-		str = append(str, []byte("привет")...)
-		_, err := writer.Write([]byte("привет"))
+		buffer.WriteString("пока")
+		_, err := f.Write([]byte("пока"))
 		if err != nil {
 			return "", err
 		}
 	}
-	return string(str), nil
+	return buffer.String(), nil
 }
 
 func someFunc([]byte) []byte {
@@ -47,7 +48,7 @@ func someFunc([]byte) []byte {
 	defer f.Close()
 	str, err := createHugeString(1<<20, f)
 	if err != nil {
-		fmt.Println("Err by printing.", err)
+		fmt.Println("Err by createHugeString:.", err)
 	}
 	return []byte(str)
 }
@@ -59,5 +60,4 @@ func main() {
 	//Работа со стеком быстрее, чем с кучей, поэтому лучше использовать локальные переменные, если это возможно.
 	justString = someFunc(justString)[:100]
 	fmt.Println(string(justString))
-
 }

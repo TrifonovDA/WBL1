@@ -58,5 +58,5 @@ func main() {
 	}
 	wg.Wait()
 
-	fmt.Println(task_map.mapa[9999])
+	fmt.Println(task_map.mapa[1000])
 }

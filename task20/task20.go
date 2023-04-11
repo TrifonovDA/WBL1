@@ -16,7 +16,7 @@ func reverseWords(s string) string {
 	wordsListLength := len(wordsList)
 
 	for i := 0; i < wordsListLength/2; i++ {
-		wordsList[i], wordsList[wordsListLength-i-1] = wordsList[wordsListLength-i-1], wordsList[i]
+		wordsList[i], wordsList[wordsListLength-i-1] = wordsList[wordsListLength-i-1], wordsList[i] //меняем слова местами
 	}
 
 	return strings.Join(wordsList, " ")

@@ -6,11 +6,12 @@ import (
 )
 
 func main() {
-	quit := make(chan struct{})
+	quit := make(chan int)
 	go func() {
 		for {
 			select {
 			case <-quit:
+				fmt.Println("Закрываем канал, завершаем работу горутины.")
 				return
 			default:
 				fmt.Println("sec.")
@@ -18,7 +19,7 @@ func main() {
 			}
 		}
 	}()
-	// …
-	time.Sleep(5 * time.Second)
-	close(quit)
+
+	time.Sleep(2 * time.Second)
+	quit <- 1
 }

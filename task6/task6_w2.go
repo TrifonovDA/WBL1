@@ -35,6 +35,4 @@ func main() {
 	close(number)
 	fmt.Println(<-number)
 	time.Sleep(time.Second * 3)
-	//close(number)
-	// …
 }

@@ -15,7 +15,6 @@ func main() {
 
 	for _, val := range strings {
 		bl += copy(bs[bl:], []byte(val))
-		fmt.Println(bl)
 	}
 
 	fmt.Println(string(bs[:]))
